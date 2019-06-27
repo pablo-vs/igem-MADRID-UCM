@@ -1,0 +1,512 @@
+{{MADRID_UCM/mainTest}}
+<html lang="en">
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+[class*="col-"] {
+  width: 100%;
+}
+
+body {
+  background-color:white;
+  max-width:100vw;
+}
+
+section {
+  clear: both;
+}
+
+p, h1, h2, h3 {
+font-family: 'Poppins', sans-serif;
+}
+
+p.custom-p, div.custom-p {
+  font-size: 1.5em;
+}
+
+p.small-p, div.small-p {
+  font-size: 1em;
+}
+
+h2 {
+  font-size: 2em;
+}
+
+.bigger.custom-header1 {
+  font-size: 6vw;
+}
+
+.custom-header1 {
+  font-size: 5vw;
+}
+
+.main-header {
+  float:left; width: 80%; z-index: 100; position: relative;
+}
+
+.sum-text {
+  margin-right:7%; position:relative; top: 25%; margin-left: 7%;
+}
+/*
+.text1 {
+  line-height: 2.5vw;
+}*/
+
+div .custom-header1 {
+   color: white;
+}
+
+.ball {
+  position: absolute;
+  border-radius: 100%;
+  opacity: 0.7;
+}
+
+.circle.text1 {
+    margin-top:2%;
+    position:relative;
+}
+
+.square.text1 {
+    margin-top:2%;
+    position:relative;
+}
+
+.triangle.text1 {
+    margin-top:2%;
+    position:relative;
+}
+
+.circle:before{
+   content: ""; box-sizing: content-box; position: absolute; left: -5%; width: 1vw; height: 1vw; background-color: transparent; border-radius: 50%; border: 0.2vw solid white; top:5%;
+}
+
+.square:before{
+   content: ""; box-sizing: content-box; position: absolute; left: -5%; width: 0.85vw; height: 0.85vw; background-color: transparent; border: 0.2vw solid white; top: 5%;
+}
+
+.triangle:before{
+   content: ""; box-sizing: content-box; position: absolute; left: -5%; width: 0px; height: 0px; border-left: 0.5vw solid #15d3ff; border-right: 0.5vw solid #15d3ff; border-bottom: 1vw solid white; top:2%;
+}
+
+.triangle:after{
+   content: ""; box-sizing: content-box; position: absolute; top: 72%; left: -4.5%; width: 0px; height: 0px; border-left: 0.3vw solid transparent; border-right: 0.3vw solid transparent; border-bottom: 0.6vw solid #15d3ff; top:6%;
+}
+
+.bg--red.bg--primary {
+  background-color:red;
+  padding: 0;
+  color: white;
+  content: "";
+  clear: both;
+  display: table;
+  margin-top: 10%;
+}
+
+.full-circle-big {
+   position: absolute;
+   background-color: white;
+   border-radius:50%;
+   height:3vw;
+   width:3vw;
+   transform: translate(50%, 500%);
+}
+
+.hollow-circle-big {
+   position: absolute;
+   background-color: transparent;
+   border-radius:50%;
+   height:3vw;
+   width:3vw;
+   border: 0.3vw solid white;
+   transform: translate(0, 80%);
+}
+
+.rotated-hollow-square {
+   position: absolute;
+   background-color: transparent;
+   border: 0.3vw solid white;
+   height:3vw;
+   width:3vw;
+   transform: rotateZ(45deg) translate(250%, 100%);
+}
+
+.full-square-big {
+   position: absolute;
+   background-color: white;
+   height:3vw;
+   width:3vw;
+   transform: translate(-30%, 800%);
+}
+
+div.img-container {
+  background-color: transparent; 
+  background-image: url(https://2019.igem.org/wiki/images/2/29/T--MADRID_UCM--title1.svg);
+  background-size: 100% auto; background-position: 20% -1.5%;
+  background-origin: content-box;
+  background-clip:border-box;
+  background-repeat:no-repeat;
+  font-weight: bold;
+  font-size: 8vw;
+  text-align: center;
+  vertical-align: middle;
+  padding-left: 4%;
+  padding-right: 5%;
+  color: white;
+  padding-bottom: 1vh;
+}
+
+.tech-section {
+  padding-left: 3vw; padding-right: 3vw; margin-bottom:3vh;
+  position: relative;
+  z-index: 50;
+}
+
+a.btn {
+   background-color: red;
+   margin-top:5%;
+   padding-top: 1%;
+   padding-bottom: 1%;
+   padding-left: 6%;
+   padding-right: 6%;
+   font-size: 4vw;
+   color: white;
+   font-weight: bold;
+   text-align: center;
+   font-family: 'Poppins', sans-serif;
+   border-radius: 5px;
+   border-style: none;
+}
+
+.big-text {
+   font-size:4vw;
+}
+
+#home {
+  height: 130vh; position:relative;
+}
+
+.bbg {
+  background-image: url(https://2019.igem.org/wiki/images/9/9e/T--MADRID_UCM--bg1.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height:120%;
+  top: 5%;
+  position: absolute;
+  z-index: 10;
+  background-position: 50% -40vh;
+}
+
+video {
+  padding-right: 1em;
+}
+
+#bolas {
+  float: left;
+  width: 0;
+  overflow: visible;
+}
+
+.shapes {
+  display: none;
+}
+
+.ot {
+  background-color: white;
+  padding: 5%;
+}
+
+@media only screen and (min-aspect-ratio:1/1) {
+  .col-1 {width: 8.33%;}
+  .col-2 {width: 16.66%;}
+  .col-3 {width: 25%;}
+  .col-4 {width: 33.33%;}
+  .col-5 {width: 41.66%;}
+  .col-6 {width: 50%;}
+  .col-7 {width: 58.33%;}
+  .col-8 {width: 66.66%;}
+  .col-9 {width: 75%;}
+  .col-10 {width: 83.33%;}
+  .col-11 {width: 91.66%;}
+  .col-12 {width: 100%;}
+
+  .col-6.m-right {
+    float: right;
+  }
+
+  [class*="col-"] {
+    float: left;
+    padding: 15px;
+  }
+  .main-header {
+    width: 50%;
+  }
+  .sum-text {
+    margin-left: 0;
+  }
+  .big-text {
+    font-size:1.5vw;
+  }
+  div .bigger.custom-header1 {
+    font-size:3.7vw;
+  }
+/*  .text1 {
+    line-height: 1.5em;
+  }*/
+  a.btn {
+    font-size: 2vw;
+  }
+
+  h2 {
+    font-size: 2vw;
+  }
+  p.custom-p, div.custom-p {
+    font-size: 1.6em;
+  }
+  p.small-p, div.small-p {
+    font-size: 1.2em;
+  }
+  video {
+    width: 100%;
+    padding-right: 4em;
+  }
+  h1.custom-header1 {
+    font-size: 2.5vw;
+  }
+
+  div.img-container {
+    font-size: 5vw;
+    background-size: 120% auto;
+  }
+
+  .tech-section {
+    padding: 0;
+  }
+
+  .shapes {
+    display: initial;
+  }
+
+  .ot {
+    padding: 0.5%;
+  }
+}
+
+@media only screen and (min-aspect-ratio: 13/10) {
+  .bbg {
+    background-position: 50% -30vh;
+  }
+
+  .sum-text {
+    top: 34%; 
+  }
+}
+
+@media only screen and (min-aspect-ratio: 18/10) {
+  .sum-text {
+    top: 30%;
+  }
+
+  .bbg {
+    background-position: 5% -27vh;
+  }
+}
+
+@media only screen and (min-aspect-ratio: 200/95) {
+
+/*  .text1 {
+    line-height:2em;
+  }*/
+
+  .big-text {
+    font-size:1.5vw;
+  }
+}
+
+@media only screen and (min-aspect-ratio: 25/10) {
+  .sum-text {
+    top: 35%;
+  }
+}
+
+</style>
+<body class=" " data-smooth-scroll-offset='180'>
+            <div id="bolas"></div>
+            <section id="home">
+                    <div class="main-header">
+                      <div style="text-align: left; margin-left:7vw;"> 
+                         <div>
+                            <h1 class="bigger custom-header1" style="color:black; font-weight: bold; text-align:left;">We do cholera AptaSensors for developing countries</h1>
+                          </div>
+                          <a class="btn" href="https://2019.igem.org/wiki/images/9/91/T--MADRID_UCM--Dossier.pdf">Read the full dossier!</a>
+                       </div>
+                        <div id="bolas"> 
+                        </div>
+                  </div>
+                  <div class="bbg">
+                      <div class="sum-text">
+                        <div class="col-6"></div>
+                        <div id="over" class="col-6" style="text-align: left;"> 
+                             <div style="position:relative;">
+                                <h1 class="custom-header1" style="font-weight: bold; text-align:left;">Our three goals</h1>
+                            </div>
+                           <p class="text1 circle" style="color:white; text-align:left;"><span class="big-text">We will employ a revolutionary technology for biosensing, aptamers, to design a cholera sensor for low-resource areas. </span>
+                           </p>
+                           <p class="text1 square" style="color:white; text-align:left;"><span class="big-text">We will create an automated aptamer discovery system which will provide us with the ability of progressing from cholera to other diseases. </span> 
+                           </p>
+                           <p class="text1 triangle" style="color:white; text-align:left;"><span class="big-text">We will work on the ground with local Tanzanian communities for a true understanding of the problem, taking feedback on the current state of cholera treatment and detection.
+</span>
+                           </p>
+                         </div>
+                     </div>
+            </div></section>
+            <section class="tech-section">
+                 <div class="col-2"></div>
+                 <div class="img-container col-6">Our Technology</div>
+                <div class="col-4"></div>
+            </section>
+            <section>
+                <div style="padding-left:10%; padding-right:10%">
+                        <div class="col-6 m-right">
+                            <video muted="" loop="" autoplay="" height="100%" width="100%" style="border-radius:50%;">
+                                <source src="https://2019.igem.org/wiki/images/c/c7/T--MADRID_UCM--Videos-animacion-web.mp4?action=purge" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="col-6" style="padding-bottom:5%;">
+                            <h2 style="font-weight: bold">THE CORE OF OUR PROJECT: APTAMERS</h2>
+                            <p class="custom-p" style="text-align:left; color: black;">Aptamers are a cutting-edge technology that is revolutionizing biotechnology, from biosensing to synthetic biology.  </p>
+                            <p class="small-p" style="text-align:left; margin-top:20px;"> Aptamers are single-strand DNA molecules that hold nature’s most important information: our genetic code. 
+</br> </br>
+But instead of using DNA for carrying information, our aptamers depend on DNA’s 3-dimensional shape. We genetically engineer this shape to take hold of and mesh with our target molecule.
+</br> </br>
+DNA’s unique role in nature gives aptamers amazing characteristics, making them robust, stable, and cheap to produce.
+</p>
+                        </div>
+                     </div>
+            </section>
+            <section class="bg--primary bg--red text-center">
+                <div class="col-1 shapes" style="float:left; position:relative;">
+                  <div class="full-circle-big"></div>
+                  <div class="full-square-big"></div>
+                  <div class="rotated-hollow-square"></div>
+                  <div class="hollow-circle-big"></div>
+                </div>
+                <img class="col-5 ot" src="https://2019.igem.org/wiki/images/4/47/T--MADRID_UCM--ot.png">
+                <div class="col-6" style="padding:5%;">
+                  <h2 style="font-weight: bold; text-align:left; color: white;">WHEN ROBOTS MAKE APTAMERS</h2>
+                    <p class="custom-p" style="text-align:left;">Our initial product will prevent contact with cholera, with the potential to avert thousands of cases in local communities. 
+<br><br>
+What could be better? How about robots that discover new aptamers every day, expanding the detection from cholera prevention to other diseases</p>
+                        <p class="small-p" style="text-align:left; margin-top:20px;">And how? Using an affordable and widespread pipetting robot, the OpenTrons-2, to automatize the entire aptamer-discovery protocol. 
+
+<br><br>
+All this information will be published under the Creative Commons license, so this system will not be limited to our goals, but will be open to everyone who wants to take up the aptamer project. 
+</p>
+                </div>
+            </section>
+            <section style="margin-top:7%; margin-bottom: 10vh; background-color:#15d3ff; overflow: auto; padding-top: 5vh; padding-bottom: 5vh; padding-left: 3vw; padding-right: 3vw;">
+    <div class="col-2"></div>
+                <div class="col-8" style="border: 5px solid white;">
+                    <div style="padding: 2vh 5vw 2vh 5vw;">
+                    <h2 style="font-weight: bold; color: white;">WHEN DEEP LEARNING MEETS APTAMERS</h2>
+                        <p class="custom-p" style="text-align:justify; color:white;">To understand aptamers, we need to understand their 3D shapes. Unfortunately, characterising them experimentally would be ruinous, and take more time than any of us have alive.
+<br><br>
+So we need another way. That way is AI. Our team will develop and train a deep-learning algorithm to predict and optimize the final 3D shapes of DNA at speeds unthinkable to traditional processors, using only raw data, a program, and its artificial mind.
+</p>
+                </div>    
+            </div> 
+    <div class="col-2"></div>
+    
+            </section>
+<script type="text/javascript" src="https://midl.ddns.net/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="https://midl.ddns.net/web-animations.min.js"></script>
+<script type="text/javascript">
+// Some random colors
+
+window.onload = function onLoad() {
+const colors = ["#ff0019", "#15d3ff", "#ffdd00"];
+const classes = ['full-square-big', 'rotated-hollow-square', 'full-circle-big', 'hollow-circle-big'];
+
+const numBalls = 8;
+const balls = [];
+const sizes = [3,3,4,4,6];
+animations = [];
+
+for (let i = 0; i < numBalls; i++) {
+  let ball = document.createElement("div");
+  var classCSS=classes[Math.floor(Math.random() * classes.length)];
+  ball.classList.add(classCSS);
+  var wBall = sizes[i%5]*(Math.random()/2 + 0.5);
+  if(window.innerWidth < 768) wBall = wBall/2;
+  if(classCSS.includes('hollow')) {
+      ball.style.borderColor = colors[Math.floor(Math.random() * colors.length)];
+      ball.style.borderSize = wBall+`px`;
+  } else {
+     ball.style.background = colors[Math.floor(Math.random() * colors.length)];
+  }
+  let valLeft = Math.floor(Math.random() * 60) + 30;
+  ball.style.left = `${valLeft}%`;
+  ball.style.top = `${Math.floor(Math.random() * 20*(1-valLeft/90)) + 10}%`;
+  ball.style.transform = `scale(${Math.random()})`;
+  ball.style.width = wBall+`vh`;
+  ball.style.height = ball.style.width;
+  ball.style.zIndex = -1;
+  ball.id = "ball"+i;
+  
+  balls.push(ball);
+  $('#bolas').append(ball);
+}
+
+function randomize(rightRoom) {
+   let to = {
+    x: (Math.random() * 2 - 1)*Math.min(300, rightRoom),
+    y: Math.random() * 300 - 150
+   };
+   return {tr: `translate(${to.x}px, ${to.y}px)`, dur: (Math.random() + 1) * 1000 + 1000};
+}
+
+function randomAnim(el, i, ra) {
+  var rightRoom = window.innerWidth - (el.getBoundingClientRect().right + window.scrollX);
+  let vals = randomize(rightRoom);
+  let anim = el.animate(
+    [
+      { transform: "translate(0, 0)" },
+      { transform: vals.tr }
+    ],
+    {
+      duration: vals.dur, // random duration
+      fill: "both",
+      easing: "ease-in-out"
+    }
+  );
+  anim.onfinish = function() {
+    if($.browser.mozilla) {
+    let kf = this.effect.getKeyframes();
+    let tim = this.effect.getTiming();
+    let vals = randomize(this.rightRoom);
+    kf[0].transform = kf[1].transform;
+    kf[1].transform = vals.tr;
+    tim.duration = vals.dur;
+    this.effect.setKeyframes(kf);
+    //this.effect.updateTiming(tim);
+} else {
+    this.reverse(); }
+    this.play();
+  }
+  anim.rightRoom = rightRoom;
+  animations.push(anim);
+}
+
+// Keyframes
+balls.forEach((el, i, ra) => {
+  randomAnim(el,i,ra);
+});
+}
+</script>
+</body>
+</html>
+{{MADRID_UCM/footer}}
