@@ -1,6 +1,18 @@
 {{MADRID_UCM/mainTest}}
 {{MADRID_UCM/style.html}}
 <html lang="en">
+<head>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-142981691-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-142981691-1');
+</script>
+
+</head>
 <body class=" " data-smooth-scroll-offset='180'>
             <div id="bolas"></div>
             <section id="home">
@@ -25,13 +37,16 @@
                            <p class="text1 circle" style="color:white; text-align:left;"><span class="big-text">
 			   We will employ a revolutionary technology for biosensing, aptamers, to design a cholera sensor for low-resource areas. </span>
                            </p>
+                           <p></p>
                            <p class="text1 square" style="color:white; text-align:left;"><span class="big-text">
 			   We will create an automated aptamer discovery system which will provide us with the ability of progressing from cholera to other diseases. 
+						   <p></p>
 			   </span> 
                            </p>
                            <p class="text1 triangle" style="color:white; text-align:left;"><span class="big-text">
 			   We will work on the ground with local Tanzanian communities for a true understanding of the problem, taking feedback on the current 
 			   state of cholera treatment and detection.
+						   <p></p>
 </span>
                            </p>
                          </div>
@@ -103,7 +118,7 @@ So we need another way. That way is AI. Our team will develop and train a deep-l
     
             </section>
 <script type="text/javascript" src="https://midl.ddns.net/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="https://midl.ddns.net/web-animations.min.js"></script>
+<script type="text/javascript" src="https://midl.ddns.net/velocity.min.js"></script>
 <script type="text/javascript">
 // Some random colors
 
@@ -113,7 +128,7 @@ const classes = ['full-square-big', 'rotated-hollow-square', 'full-circle-big', 
 
 const numBalls = 8;
 const balls = [];
-const sizes = [3,3,4,4,6];
+const sizes = [5,5,6,6,8];
 animations = [];
 
 for (let i = 0; i < numBalls; i++) {
@@ -121,62 +136,54 @@ for (let i = 0; i < numBalls; i++) {
   var classCSS=classes[Math.floor(Math.random() * classes.length)];
   ball.classList.add(classCSS);
   var wBall = sizes[i%5]*(Math.random()/2 + 0.5);
+  console.log("SIZE  = " + wBall);
   if(window.innerWidth < 768) wBall = wBall/2;
   if(classCSS.includes('hollow')) {
       ball.style.borderColor = colors[Math.floor(Math.random() * colors.length)];
-      ball.style.borderSize = wBall+`px`;
+      ball.style.borderSize = (wBall/3)+`vh`;
   } else {
+     
      ball.style.background = colors[Math.floor(Math.random() * colors.length)];
   }
-  let valLeft = Math.floor(Math.random() * 60) + 30;
+  let valLeft = Math.floor(Math.random() * 60) + 20;
   ball.style.left = `${valLeft}%`;
-  ball.style.top = `${Math.floor(Math.random() * 20*(1-valLeft/90)) + 10}%`;
-  ball.style.transform = `scale(${Math.random()})`;
+  ball.style.top = `${Math.floor(Math.random() * 20*(1-valLeft/90)) - 10}%`;
+  ball.style.transform = ``;
   ball.style.width = wBall+`vh`;
   ball.style.height = ball.style.width;
   ball.style.zIndex = -1;
   ball.id = "ball"+i;
-  
   balls.push(ball);
   $('#bolas').append(ball);
 }
 
 function randomize(rightRoom) {
    let to = {
-    x: (Math.random() * 2 - 1)*Math.min(300, rightRoom),
-    y: Math.random() * 300 - 150
+    x: (Math.random() * 60 + 20) + '%',
+    y: (Math.random() * 20 - 10) + '%'
    };
-   return {tr: `translate(${to.x}px, ${to.y}px)`, dur: (Math.random() + 1) * 1000 + 1000};
+   return {coords: to, dur: (Math.random() + 1) * 1000 + 1000};
 }
 
 function randomAnim(el, i, ra) {
   var rightRoom = window.innerWidth - (el.getBoundingClientRect().right + window.scrollX);
   let vals = randomize(rightRoom);
-  let anim = el.animate(
-    [
-      { transform: "translate(0, 0)" },
-      { transform: vals.tr }
-    ],
-    {
-      duration: vals.dur, // random duration
-      fill: "both",
-      easing: "ease-in-out"
-    }
-  );
-  anim.onfinish = function() {
+  let anim = el.velocity({ top: vals.coords.y, left: vals.coords.x}, { duration: vals.dur, loop: true,
+  complete: function() {randomAnim(el, 0, 0);}});
+  /*anim.onfinish = function() {
     if($.browser.mozilla) {
-    let kf = this.effect.getKeyframes();
-    let tim = this.effect.getTiming();
-    let vals = randomize(this.rightRoom);
-    kf[0].transform = kf[1].transform;
-    kf[1].transform = vals.tr;
-    tim.duration = vals.dur;
-    this.effect.setKeyframes(kf);
-    //this.effect.updateTiming(tim);
-} else {
-    this.reverse(); }
-    this.play();
-  }
+      let kf = this.effect.getKeyframes();
+      let tim = this.effect.getTiming();
+      let vals = randomize(this.rightRoom);
+      kf[0].transform = kf[1].transform;
+      kf[1].transform = vals.tr;
+      tim.duration = vals.dur;
+      this.effect.setKeyframes(kf);
+      //this.effect.updateTiming(tim);
+    } else {
+      this.reverse(); }
+      this.play();
+  }*/
   anim.rightRoom = rightRoom;
   animations.push(anim);
 }
