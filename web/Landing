@@ -1,8 +1,6 @@
 {{MADRID_UCM/mainTest}}
+{{MADRID_UCM/style.html}}
 <html lang="en">
-<head>
-<link href="style.css" rel="stylesheet" type="text/css">
-</head>
 <body class=" " data-smooth-scroll-offset='180'>
             <div id="bolas"></div>
             <section id="home">
@@ -15,7 +13,7 @@
                        </div>
                         <div id="bolas"> 
                         </div>
-                    </div>
+                  </div>
                   <div class="bbg">
                       <div class="sum-text">
                         <div class="col-6"></div>
