@@ -57,18 +57,7 @@
 static float INVERSE_BASE_TEMP = 1.0 / (THERMISTOR_BASE_TEMP + KELVIN);
 
 double voltageToTemp (double voltageRatio, float resistance, float b_constant, float r0) {
-	PCR_ADC_DEBUG("VoltageToTemp calculations: ");
-	PCR_ADC_DEBUG("voltageRatio: ");
-  PCR_ADC_DEBUG_LINE(voltageRatio);
-	PCR_ADC_DEBUG("resistance: ");
-   PCR_ADC_DEBUG_LINE(resistance);
-	PCR_ADC_DEBUG("b_constant: ");
-   PCR_ADC_DEBUG_LINE(b_constant);
-	PCR_ADC_DEBUG("r0: ");
-  PCR_ADC_DEBUG_LINE(r0);
     double thermistorR = resistance * voltageRatio / (1.0 - voltageRatio);
-	PCR_ADC_DEBUG("thermistorR: ");
-  PCR_ADC_DEBUG_LINE(thermistorR);
     return (1 / ((log(thermistorR / r0) / b_constant) + INVERSE_BASE_TEMP))  - KELVIN;
 }
 double tempToVoltageRatio (double tempCelsius, double resistance, double bConst, double r0) {

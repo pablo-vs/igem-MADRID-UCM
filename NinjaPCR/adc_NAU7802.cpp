@@ -41,84 +41,6 @@ static uint8_t wellADCReadRegValue(char reg_address) {
   return Wire.read();
 }
 
-uint8_t read(uint8_t reg) {
-  Wire.beginTransmission(0x2A);
-  Wire.write((uint8_t)reg);
-  Wire.endTransmission();
-
-  Wire.requestFrom((uint8_t)0x2A, (uint8_t)1);
-  return Wire.read();
-}
-
-boolean readBit(uint8_t reg, uint8_t bit){
-  //create bitmask
-  uint8_t bitmask = 1<<bit;
-  if(read(reg) & bitmask){
-    return true;
-  }
-  return false;
-}
-
-void write(uint8_t reg, uint8_t val) {
-  Wire.beginTransmission(0x2A);
-  Wire.write((uint8_t)reg);
-  Wire.write(val);
-  Wire.endTransmission();
-}
-
-void writeBit(uint8_t reg, uint8_t bit) {
-  uint8_t val = read(reg) | (1<<bit);
-  write(reg, val);
-}
-
-void clearBit(uint8_t reg, uint8_t bit) {
-  uint8_t val = read(reg) & ~(1<<bit);
-  write(reg, val);
-}
-
-void readUntilTrue(uint8_t reg, uint8_t bit) {
-  //create bitmask
-  uint8_t bitmask = 1<<bit;
-  bool readUntil = false;
-  //Just keep reading until bit requested is true
-  while(readUntil == false){
-    if(read(reg) & bitmask){
-      readUntil=true;
-    }
-  }
-}
-
-uint32_t read24(uint8_t reg) {
-  uint32_t val;
-
-  Wire.beginTransmission(0x2A);
-  Wire.write((uint8_t)reg);
-  Wire.endTransmission();
-  Wire.beginTransmission(NAU7802_DEVICE_ADDRESS);
-  Wire.requestFrom((uint8_t)0x2A, (uint8_t)3);
-  val = Wire.read();    // receive high byte
-  val <<= 8;            // shift byte to make room for new byte
-  val |= Wire.read();   // receive mid byte
-  val <<= 8;            // shift both bytes
-  val |= Wire.read();   // receive low byte
-  return val;
-}
-
-long readADC(){
-  readUntilTrue(NAU7802_REG_ADDR_PU_CTRL,NAU7802_BIT_CR);
-  uint32_t adcVal = read24(NAU7802_REG_ADDR_ADCO_B2);
-  writeBit(NAU7802_REG_ADDR_PU_CTRL, NAU7802_BIT_CS);
-  if(adcVal & 0x00800000){
-    adcVal = ~adcVal+1;
-    adcVal = -1*(adcVal & 0x00FFFFFF);
-  }
-  return adcVal;
-}
-
-float readmV(){
-  return (1/(float)16777216)*(float)readADC();
-}
-
 // Read continuous registers
 static uint8_t wellADCReadRegValues(char reg_address, char *out, uint8_t dataSize) {
   Wire.beginTransmission(NAU7802_DEVICE_ADDRESS); // transmit to device #0x2A
@@ -262,44 +184,6 @@ uint8_t initADC () {
     PCR_ADC_DEBUG_LINE("Rev code WRONG");
   }
 
-  //setRegisterBit(0x15, 5);
-  //setRegisterBit(0x15, 4);
-  //wellADCWriteRegValue(0x0D, 0x10);
-  //setRegisterBit(0x1B,5);
-  //setRegisterBit(0x1B,0);
-  //setRegisterBit(0x01, 5); //LDO to 3.3
-
-  //OFFSET LID
-  //wellADCWriteRegValue(0x0A, 0x0C);
-  //wellADCWriteRegValue(0x0B, 0xCC);
-  //wellADCWriteRegValue(0x0C, 0xCC);
-
-  //GAIN LID
-  //wellADCWriteRegValue(0x0D, 0x0F);
-  //wellADCWriteRegValue(0x0E, 0xFF);
-  //wellADCWriteRegValue(0x0F, 0xFF);
-  
-  //OFFSET WELL
-  //wellADCWriteRegValue(0x03, 0xCA);
-  //wellADCWriteRegValue(0x04, 0xDB);
-  //wellADCWriteRegValue(0x05, 0x10);
-
-  PCR_ADC_DEBUG("PGA BYPASS: ");
-  PCR_ADC_DEBUG_LINE(wellADCReadRegValue(0x1B));
-  PCR_ADC_DEBUG("OFFSET 1: ");
-  PCR_ADC_DEBUG_LINE(wellADCReadRegValue(0x03));
-  PCR_ADC_DEBUG("GAIN 1_1: ");
-  PCR_ADC_DEBUG_LINE(wellADCReadRegValue(0x06));
-  PCR_ADC_DEBUG("GAIN 1_2: ");
-  PCR_ADC_DEBUG_LINE(wellADCReadRegValue(0x07));
-  PCR_ADC_DEBUG("OFFSET 2: ");
-  PCR_ADC_DEBUG_LINE(wellADCReadRegValue(0x0A));
-  PCR_ADC_DEBUG("GAIN 2_1: ");
-  PCR_ADC_DEBUG_LINE(wellADCReadRegValue(0x0D));
-  PCR_ADC_DEBUG("GAIN 2_2: ");
-  PCR_ADC_DEBUG_LINE(wellADCReadRegValue(0x0E));
-  PCR_ADC_DEBUG("VLDO: ");
-  PCR_ADC_DEBUG_LINE(wellADCReadRegValue(0x01));
   delay(3000);
   return NO_ERR;
 }
@@ -340,7 +224,7 @@ HardwareStatus switchADCConfig (uint8_t channel, uint8_t SPS0, uint8_t SPS1, uin
   wellADCWriteRegValue(NAU7802_REG_ADDR_CTRL2, value);
   HardwareStatus result;
   // Wait for "Calib OK" flag
-  if (waitForFlag(NAU7802_REG_ADDR_CTRL2, 2, false, 500)==false) { return HARD_ERROR_ADC; }
+  if (waitForFlag(NAU7802_REG_ADDR_CTRL2, 2, false, 500)==false) { PCR_ADC_DEBUG_LINE("ERROR WHILE SWITCHING CONFIG"); return HARD_ERROR_ADC; }
   setRegisterBit(NAU7802_REG_ADDR_PU_CTRL, NAU7802_BIT_CS);
   return HARD_NO_ERROR;
   /*
@@ -350,11 +234,7 @@ float getADCValue () {
   uint32_t adc_val = 0xFFFFFF;
   char read_out[3] = {0xFF, 0xFF, 0xFF};
   i2c_err = wellADCReadRegValues(NAU7802_REG_ADDR_ADCO_B2, read_out, 3); //Useless variable!
-  PCR_ADC_DEBUG_LINE("ADC read values");
-  PCR_ADC_DEBUG_LINE((uint8_t)read_out[0]);
-  PCR_ADC_DEBUG_LINE((uint8_t)read_out[1]);
-  PCR_ADC_DEBUG_LINE((uint8_t)read_out[2]);
-  //read_out[0] -= 0x80; // signed->unsigned
+  read_out[0] -= 0x80; // signed->unsigned
   adc_val = (read_out[0] << 16) | (read_out[1] << 8) | read_out[2];
   
   /*if(adc_val & 0x00800000){
@@ -380,7 +260,7 @@ HardwareStatus getWellADCValue (float *val) {
   return 0;
 #endif /* ADC_DUMMY_MODE */
   // Wait for "Cycle ready" flag
-  if (waitForFlag(NAU7802_REG_ADDR_PU_CTRL, NAU7802_BIT_CR, true, 500)==false) { return HARD_ERROR_ADC; }
+  if (waitForFlag(NAU7802_REG_ADDR_PU_CTRL, NAU7802_BIT_CR, true, 500)==false) { PCR_ADC_DEBUG_LINE("ERROR WHILE READING WELL"); return HARD_ERROR_ADC; }
   // Wait (if needed) Read -> save timestamp -> Switch Channel & Set SPS
   Wire.beginTransmission(0xFF);
   Wire.endTransmission();
@@ -396,7 +276,7 @@ HardwareStatus getLidADCValue (float *val) {
   return 0;
 #endif /* ADC_DUMMY_MODE */
   // Wait for "Cycle ready" flag
-  if (waitForFlag(NAU7802_REG_ADDR_PU_CTRL, NAU7802_BIT_CR, true, 500)==false) { return HARD_ERROR_ADC; }
+  if (waitForFlag(NAU7802_REG_ADDR_PU_CTRL, NAU7802_BIT_CR, true, 500)==false) {PCR_ADC_DEBUG_LINE("ERROR WHILE READING LID"); return HARD_ERROR_ADC; }
   // Wait (if needed) Read -> save timestamp -> Switch Channel & Set SPS
   Wire.beginTransmission(0xF0);
   Wire.endTransmission();
