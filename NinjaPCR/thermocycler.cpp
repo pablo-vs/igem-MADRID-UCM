@@ -981,15 +981,18 @@ void Thermocycler::SetPeltier(ThermalDirection dir, int pwm /* Signed value of p
   if (dirActual == COOL) {
     digitalWrite(PIN_WELL_INA, PIN_WELL_VALUE_OFF);
     digitalWrite(PIN_WELL_INB, PIN_WELL_VALUE_ON);
+    PCR_DEBUG_LINE("PELTIER COOLING");
   }
   else if (dirActual == HEAT) {
     digitalWrite(PIN_WELL_INA, PIN_WELL_VALUE_ON);
     digitalWrite(PIN_WELL_INB, PIN_WELL_VALUE_OFF);
+    PCR_DEBUG_LINE("PELTIER HEATING");
   }
   else {
       // Off
     digitalWrite(PIN_WELL_INA, PIN_WELL_VALUE_OFF);
     digitalWrite(PIN_WELL_INB, PIN_WELL_VALUE_OFF);
+    PCR_DEBUG_LINE("PELTIER OFF");
   }
   analogValuePeltier = pwmActual;
   int absOutput = (dir==COOL)?-pwmActual:pwmActual;
@@ -1010,14 +1013,17 @@ void Thermocycler::SetPeltier(Thermocycler::ThermalDirection dir, int pwm /* Sig
   if (dir == COOL) {
     digitalWrite(PIN_WELL_INA, HIGH);
     digitalWrite(PIN_WELL_INB, LOW);
+    PCR_DEBUG_LINE("PELTIER COOLING");
   }
   else if (dir == HEAT) {
     digitalWrite(PIN_WELL_INA, LOW);
     digitalWrite(PIN_WELL_INB, HIGH);
+    PCR_DEBUG_LINE("PELTIER HEATING");
   }
   else {
     digitalWrite(PIN_WELL_INA, LOW);
     digitalWrite(PIN_WELL_INB, LOW);
+    PCR_DEBUG_LINE("PELTIER OFF");
   }
 
 #ifdef PIN_WELL_PWM_ACTIVE_LOW
