@@ -14,6 +14,16 @@
 
 </head>
 <body class=" " data-smooth-scroll-offset='180'>
+  <div id="loader">
+    <div class="uber-container">
+      <div class="rotor">
+        <div class="container" style="transform: translate(-50%, -50%);"><div class="circle1"></div></div>
+        <div class="container" style="transform: translate(-50%, -50%) rotateZ(120deg);"><div class="square1"></div></div>
+        <div class="container" style="transform: translate(-50%, -50%) rotateZ(-120deg);"><div class="triangle1"></div></div>
+      </div>
+    </div>
+  </div>
+  <div id="body" style="display:none;">
             <div id="bolas"></div>
             <section id="home">
                     <div class="main-header">
@@ -123,6 +133,14 @@ So we need another way. That way is AI. Our team will develop and train a deep-l
 // Some random colors
 
 window.onload = function onLoad() {
+
+timeout = setTimeout(showPage, 2000);
+
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("body").style.display = "block";
+}
+
 const colors = ["#ff0019", "#15d3ff", "#ffdd00"];
 const classes = ['full-square-big', 'rotated-hollow-square', 'full-circle-big', 'hollow-circle-big'];
 

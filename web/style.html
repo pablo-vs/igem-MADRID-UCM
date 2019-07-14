@@ -332,5 +332,99 @@ video {
   }
 }
 
+
+.uber-container {
+  position: absolute;
+  border-radius: 50%;
+  background-color: white;
+  height: 300px;
+  width: 300px;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+}
+
+.container {
+  position: fixed;
+  height: 200px;
+  width: 200px;
+  top:50%;
+  left:50%;
+}
+
+.circle1 {
+   position: absolute;
+   background-color: #ff0019;
+   border-radius:50%;
+   height:50px;
+   width:50px;
+   top: 0px;
+   left: 75px;
+}
+
+.square1 {
+   position: absolute;
+   background-color: transparent;
+   border: 5px solid #15d3ff;
+   height:50px;
+   width:50px;
+   top: 0px;
+   left: 75px;
+}
+
+.triangle1 {
+  position: absolute;
+  background-color: transparent;
+  border-bottom: 43px solid #ffdd00;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  height:0;
+  width:0;
+  top: 0px;
+  left: 75px;
+}
+
+.rotor {
+  border-radius: 50%;
+  background-color: white;
+  height: 300px;
+  width: 300px;
+  animation: spin 2s linear infinite;
+  webkit-animation: spin 2s linear infinite;
+}
+
+@webkit-keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#loader {
+  position:relative;
+  height:100vh;
+  width:100vw;
+}
+
+#body {
+  -webkit-animation-name: fadein;
+  -webkit-animation-duration: 1s;
+  animation-name: fadein;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes fadein {
+  from { opacity:0 } 
+  to { opacity:1 }
+}
+
+@keyframes fadein { 
+  from{ opacity:0 } 
+  to{ opacity:1 }
+}
+
 </style>
 </html>
