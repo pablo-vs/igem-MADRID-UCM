@@ -1,9 +1,8 @@
 #include <LEAmDNS.h>
-#include <ESP8266mDNS.h>
 #include <LEAmDNS_lwIPdefs.h>
+#include <ESP8266mDNS.h>
 #include <LEAmDNS_Priv.h>
 #include <ESP8266mDNS_Legacy.h>
-#include <esp8266_peri.h>
 
 /*
  *  openpcr.pde - OpenPCR control software.tt

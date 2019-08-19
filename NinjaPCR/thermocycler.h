@@ -204,6 +204,9 @@ private:
   double iElapsedFastRampDegrees;
   unsigned long iTotalElapsedFastRampDurationMs;
 
+  //Time of lid warming
+  unsigned long iLidWarmStart = 0;
+
   double iRampStartTemp;
   unsigned long iRampElapsedTimeMs;
   unsigned long iEstimatedTimeRemainingS;
